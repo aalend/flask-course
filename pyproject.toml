@@ -1,0 +1,58 @@
+[project]
+name = "flask-course"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.3",
+    "ruff>=0.15.20",
+]
+
+[tool.ruff]
+# Maximum line length. 88 is the Ruff/Black default; many Flask projects use 100.
+line-length = 88
+# Target Python version — must match "requires-python" in your pyproject.toml
+target-version = "py312"
+
+# Folders Ruff should never touch
+exclude = [
+    ".venv",
+    "migrations",   # Alembic/Flask-Migrate auto-generates these — don't lint generated code
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+# Which rule groups to enable (each code = one "plugin")
+select = [
+    "E",    # pycodestyle errors (whitespace, indentation)
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes — unused imports, variables, etc.
+    "I",    # isort — import sorting
+    "B",    # flake8-bugbear — catches real bugs, not just style
+    "C4",   # flake8-comprehensions — better list/dict comprehensions
+    "UP",   # pyupgrade — modernizes old Python syntax
+    "N",    # pep8-naming — naming conventions
+    "SIM",  # flake8-simplify — suggests simpler expressions
+]
+
+ignore = [
+    "E501",  # Leave line length to the formatter, not the linter
+    "B008",  # Don't complain about function calls in argument defaults
+             # (Flask & FastAPI dependency patterns use these intentionally)
+]
+
+[tool.ruff.lint.per-file-ignores]
+# In __init__.py it's normal to have "unused" imports (re-exports)
+"__init__.py" = ["F401"]
+# In tests it's fine to have redefinitions and unused fixture imports
+"tests/*" = ["F811", "F401"]
+
+[tool.ruff.lint.isort]
+# Tell isort to treat your app package as "first-party" (separates it from external libs)
+known-first-party = ["app"]  # change "app" to your package name
+
+[tool.ruff.format]
+# Ruff has a built-in formatter (Black replacement)
+quote-style = "double"
+indent-style = "space"
