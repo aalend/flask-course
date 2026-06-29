@@ -54,5 +54,5 @@ known-first-party = ["app"]  # change "app" to your package name
 
 [tool.ruff.format]
 # Ruff has a built-in formatter (Black replacement)
-quote-style = "double"
+quote-style = "single"
 indent-style = "space"
